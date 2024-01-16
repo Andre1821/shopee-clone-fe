@@ -1,0 +1,28 @@
+#nav {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  border: none;
+  display: flex;
+  background-color: rgb(255, 94, 0);
+}
+
+.custom-navbar {
+  position: absolute;
+  font-size: medium;
+  margin: 0 auto;
+}
+
+.nav-item {
+  font-weight: bold;
+}
+
+.custom-search {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.custom-search button {
+  border: none;
+  background-color: rgb(255, 94, 0);
+  margin: 4px;
+}
