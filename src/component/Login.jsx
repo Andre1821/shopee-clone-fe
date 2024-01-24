@@ -33,7 +33,6 @@ const Login = () => {
 
             const data = response.data.data
             localStorage.setItem("Data", JSON.stringify(data))
-            console.log('data : ', data);
             
             e.preventDefault()
             setTimeout(() => {
@@ -111,7 +110,8 @@ const Login = () => {
 
                                     <div>
                                         <p className="mb-0 text-black">Dont have an account?
-                                            <Link to='/register' className=" fw-bold text-black"> Register</Link>
+                                            <Link to='/register' className=" fw-bold text-black"> Register</Link> or 
+                                            <Link to='/registerAdmin' className=" fw-bold text-black"> Register Admin</Link>
                                         </p>
                                     </div>
 

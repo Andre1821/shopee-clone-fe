@@ -5,19 +5,16 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const Register = () => {
+const RegisterAdmin = () => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
-    const [address, setAddress] = useState('')
     const [mobilePhone, setmobilePhone] = useState('')
-    const [email, setEmail] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-    
     const handleSubmit = async (e) => {
-        if (!username.trim() || !password.trim() || !name.trim() || !address.trim() || !mobilePhone.trim() || !email.trim()) {
+        if (!username.trim() || !password.trim() || !name.trim() || !mobilePhone.trim()) {
             setErrorMessage("Please fill in all fields")
             return
         }
@@ -25,31 +22,27 @@ const Register = () => {
         try {
             setLoading(true)
             e.preventDefault()
-            const registerCustomer = await axios.post('http://localhost:8080/api/auth/register/customer', {
+            const registerAdmin = await axios.post('http://localhost:8080/api/auth/register/admin', {
                 username,
                 password,
                 name,
-                address,
                 mobilePhone,
-                email,
             })
 
-            const dataCustomer = registerCustomer.data.data
+            const dataCustomer = registerAdmin.data.data
             localStorage.setItem("DataUser", JSON.stringify(dataCustomer))
 
             setLoading(false)
             toast.success('Registration successful', {
                 position: 'top-center',
-                autoClose: 2000,
+                autoClose: 3000,
             })
 
             navigate("/login")
             setUsername("")
             setPassword("")
             setName("")
-            setAddress("")
             setmobilePhone("")
-            setEmail("")
             setErrorMessage("")
         } catch (err) {
             console.log("Error", err)
@@ -67,7 +60,7 @@ const Register = () => {
                             <div className="card " style={{ borderRadius: "1rem" }}>
                                 <div className="card-body p-5 text-center custom-card">
                                     <div className="mb-md-5 mt-md-4 pb-5">
-                                        <h2 className="fw-bold mb-2 text-uppercase">Register</h2>
+                                        <h2 className="fw-bold mb-2 text-uppercase">Register Admin</h2>
                                         <div className="form-outline form-white mb-4">
                                             <label className="form-label" htmlFor="username">Username</label>
                                             <input
@@ -123,24 +116,6 @@ const Register = () => {
                                             </div>
                                         </div>
                                         <div className="form-outline form-white mb-4">
-                                            <label className="form-label" htmlFor="address">Address</label>
-                                            <input
-                                                type="text"
-                                                id="address"
-                                                className={`form-control form-control-lg ${errorMessage && "is-invalid"}`}
-                                                placeholder='Address'
-                                                value={address}
-                                                onChange={(e) => setAddress(e.target.value)}
-                                                required
-                                            />
-                                            <div
-                                                className="invalid-feedback"
-                                                style={{ fontSize: "20px", color: "red" }}
-                                            >
-                                                {errorMessage}
-                                            </div>
-                                        </div>
-                                        <div className="form-outline form-white mb-4">
                                             <label className="form-label" htmlFor="mobilePhone">Phone Number</label>
                                             <input
                                                 type="text"
@@ -149,24 +124,6 @@ const Register = () => {
                                                 placeholder='Mobile Phone'
                                                 value={mobilePhone}
                                                 onChange={(e) => setmobilePhone(e.target.value)}
-                                                required
-                                            />
-                                            <div
-                                                className="invalid-feedback"
-                                                style={{ fontSize: "20px", color: "red" }}
-                                            >
-                                                {errorMessage}
-                                            </div>
-                                        </div>
-                                        <div className="form-outline form-white mb-4">
-                                            <label className="form-label" htmlFor="email">Email</label>
-                                            <input
-                                                type="email"
-                                                id="email"
-                                                className={`form-control form-control-lg ${errorMessage && "is-invalid"}`}
-                                                placeholder='Email'
-                                                value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
                                                 required
                                             />
                                             <div
@@ -190,4 +147,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default RegisterAdmin

@@ -11,6 +11,17 @@ const DetailProduct = ({ product, show, handleClose }) => {
     const handleAddToCart = () => {
         if (product) {
             dispatch(addToCart({ ...product, quantity })) 
+            const existingItems = JSON.parse(localStorage.getItem("cartItems")) || []
+
+            const existingItem =  existingItems.find(item => item.id === product.id)
+
+            if(existingItem){
+                existingItem.quantity += quantity
+            } else {
+                existingItems.push({...product, quantity})
+            }
+
+            localStorage.setItem("cartItems", JSON.stringify(existingItems))
             handleClose()
         }
     }

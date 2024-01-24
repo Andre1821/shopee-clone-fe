@@ -30,3 +30,13 @@
 .custom-dropdown .dropdown-toggle::after {
   display: none;
 }
+
+.navbar-nav .custom-dropdown .dropdown-menu {
+  margin-top: 0;
+  margin-left: auto; 
+}
+
+.navbar-nav .custom-dropdown .dropdown-menu {
+  margin-top: 2px; 
+  margin-left: -115%;
+}
