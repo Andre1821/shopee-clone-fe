@@ -14,13 +14,13 @@ const Carousell = () => {
                     </div>
                     <div className="carousel-inner">
                         <div className="carousel-item active">
-                            <img src={slide1}  alt="..." style={{ maxWidth: "100%" }}/>
+                            <img src={slide1}  alt="..." style={{ width: "100%" }}/>
                         </div>
                         <div className="carousel-item">
-                            <img src={slide2}  alt="..." style={{ maxWidth: "100%" }}/>
+                            <img src={slide2}  alt="..." style={{ width: "100%" }}/>
                         </div>
                         <div className="carousel-item">
-                            <img src={slide3}  alt="..." style={{ maxWidth: "100%" }}/>
+                            <img src={slide3}  alt="..." style={{ width: "100%" }}/>
                         </div>
                     </div>
                     <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

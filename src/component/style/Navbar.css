@@ -21,8 +21,12 @@
   border-radius: 5px;
 }
 
-.custom-search button {
+.custom-btn button {
   border: none;
   background-color: rgb(255, 94, 0);
   margin: 4px;
+}
+
+.custom-dropdown .dropdown-toggle::after {
+  display: none;
 }

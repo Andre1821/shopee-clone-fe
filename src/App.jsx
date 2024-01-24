@@ -6,7 +6,6 @@ import Cart from './component/Cart'
 
 
 function App() {
-
   return (
     <>
       <Router>

@@ -7,7 +7,7 @@ const Dashboard = () => {
         <>
             <Navbar />
             <Carousell />
-            <Product/>
+            <Product />
         </>
     )
 }

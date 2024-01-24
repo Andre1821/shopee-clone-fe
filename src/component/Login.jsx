@@ -1,20 +1,56 @@
 import './style/Login.css'
-import { Outlet, Link, useNavigate} from 'react-router-dom'
-import React from 'react'
-
+import { Outlet, Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
 
 const Login = () => {
     const navigate = useNavigate()
-    const [loading, setLoading] = React.useState(false)
+    const [loading, setLoading] = useState(false)
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [errorMessageUser, setErrorMessageUser] = useState('')
+    const [errorMessagePswd, setErrorMessagePswd] = useState('')
+    const dispatch = useDispatch()
 
 
-    const handleLogin = (e) => {
-        e.preventDefault()
-        setTimeout(() => {
-            navigate("/")
-            setLoading(true)
-        },1000)
+    const handleLogin = async (e) => {
+        if (!username.trim()) {
+            setErrorMessageUser("Please enter your username");
+            return;
+        }
+        if (!password.trim()) {
+            setErrorMessagePswd("Please enter your password");
+            return;
+        }
+
+        try {
+
+            const response = await axios.post('http://localhost:8080/api/auth/login', {
+                username: username,
+                password: password,
+            })
+
+            const data = response.data.data
+            localStorage.setItem("Data", JSON.stringify(data))
+            console.log('data : ', data);
+            
+            e.preventDefault()
+            setTimeout(() => {
+                navigate("/")
+                setLoading(true)
+            }, 1000)
+
+            setUsername("")
+            setPassword("")
+            setErrorMessageUser("")
+            setErrorMessagePswd("")
+        } catch (err) {
+            console.log('Erroor', err)
+        }
     }
+
+
 
     return (
         <>
@@ -25,19 +61,31 @@ const Login = () => {
                             <div className="card " style={{ borderRadius: "1rem" }}>
                                 <div className="card-body p-5 text-center custom-card">
 
-                                    <div className="mb-md-5 mt-md-4 pb-5">
+                                    <div className="form-outline mb-md-5 mt-md-4 pb-5 needs-validation" noValidate>
 
                                         <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
                                         <p className="text-black-50 mb-5">Please enter your login and password!</p>
 
                                         <div className="form-outline form-white mb-4">
-                                            <input type="email" id="typeEmailX" className="form-control form-control-lg" />
-                                            <label className="form-label" htmlFor="typeEmailX">Email</label>
+                                            <label className="form-label" htmlFor="typeUsername">Username</label>
+                                            <input type="text" id="typeUsername" className={`form-control form-control-lg ${errorMessageUser && "is-invalid"}`} placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} required />
+                                            <div
+                                                className="invalid-feedback"
+                                                style={{ fontSize: "20px", color: "red" }}
+                                            >
+                                                {errorMessageUser}
+                                            </div>
                                         </div>
 
                                         <div className="form-outline form-white mb-4">
-                                            <input type="password" id="typePasswordX" className="form-control form-control-lg" />
                                             <label className="form-label" htmlFor="typePasswordX">Password</label>
+                                            <input type="password" id="typePasswordX" className={`form-control form-control-lg ${errorMessagePswd && "is-invalid"}`} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required />
+                                            <div
+                                                className="invalid-feedback"
+                                                style={{ fontSize: "20px", color: "red" }}
+                                            >
+                                                {errorMessagePswd}
+                                            </div>
                                         </div>
 
                                         <button className="btn btn-outline-light btn-lg px-5" type="submit" onClick={handleLogin}>Login</button>
